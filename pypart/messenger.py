@@ -1,4 +1,5 @@
 import re
+from dataclasses import dataclass, field
 
 
 class Email:
@@ -58,6 +59,27 @@ class Email:
         '''Returns the email address when called str() function.'''
 
         return self._email
+
+
+class Credentials:
+    '''The sender credentials.
+
+    Attributes:
+        email (Email): The sender email.
+        password (str): The sender password.
+    '''
+
+    def __init__(self, email: str | Email, password: str) -> None:
+        '''The constructor.'''
+
+        if not password:
+            raise ValueError('A password must be specified.')
+
+        if not email:
+            raise ValueError('An email must be specified.')
+
+        self.email: Email = Email(str(email))
+        self.password: str = password
 
 
 class EmailFormatError(Exception):
